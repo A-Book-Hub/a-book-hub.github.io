@@ -1,1 +1,1 @@
-PDF collection
+Book PDF collection
