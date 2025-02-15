@@ -1052,7 +1052,7 @@
             </div>
         </a>
 
-        <a class="link-card" href="https://daoyuan14.github.io/elos.pdf" target="_blank" style="background-image: url('images/theElementsOfStyle.jpg'); background-size: cover;">
+        <a class="link-card" href="https://daoyuan14.github.io/elos.pdf" data-title="The Elements of Style" target="_blank" style="background-image: url('images/theElementsOfStyle.jpg'); background-size: cover;">
             <div>
                 <p class="link-title">The Elements of Style</p>
                 <p class="link-description">https://daoyuan14.github.io/elos.pdf</p>
@@ -1349,7 +1349,7 @@
                 let bookContainer = document.getElementById("bookList");
 
                 links.forEach(link => {
-                    let title = link.getAttribute("link-title").toLowerCase();
+                    let title = link.getAttribute("data-title").toLowerCase();
                     if (title.includes(input)) {
                         link.classList.remove("hidden");
                     } else {
