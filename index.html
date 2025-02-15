@@ -91,7 +91,7 @@
 
     <br>
 
-    <div class="library-container">
+    <div class="library-container" id="bookList">
 
         <a class="link-card" href="https://xenopraxis.net/readings/freud_beyondthepleasureprinciple.pdf" target="_blank" style="background-image: url('images/beyondThePleasurePrinciple.jpg'); background-size: cover;">
             <div>
@@ -1346,7 +1346,7 @@
             function filterBooks() {
                 let input = document.getElementById("searchBar").value.toLowerCase();
                 let links =  Array.from(document.querySelectorAll(".link-card"));
-                let bookContainer = document.getElementById("bookList");
+                let libraryContainer = document.getElementById("bookList");
 
                 links.forEach(link => {
                     let title = link.getAttribute("data-title").toLowerCase();
