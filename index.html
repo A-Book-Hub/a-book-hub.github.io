@@ -1349,7 +1349,7 @@
                 let bookContainer = document.getElementById("bookList");
 
                 links.forEach(link => {
-                    let title = link.getAttribute("data-title").toLowerCase();
+                    let title = link.getAttribute("link-title").toLowerCase();
                     if (title.includes(input)) {
                         link.classList.remove("hidden");
                     } else {
