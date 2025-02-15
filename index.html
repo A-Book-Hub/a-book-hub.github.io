@@ -1343,15 +1343,25 @@
 
         <script>
 
-            function autoScroll() {
+            function filterBooks() {
+                let input = document.getElementById("searchBar").value.toLowerCase();
+                let links =  Array.from(document.querySelectorAll(".link-card"));
+                let bookContainer = document.getElementById("bookList");
 
-                window.scrollBy(0, 0.5);
+                links.forEach(link => {
+                    let title = link.getAttribute("data-title").toLowerCase();
+                    if (title.includes(input)) {
+                        link.classList.remove("hidden");
+                    } else {
+                        link.classList.add("hidden");
+                    }
+                });
 
-                setTimeout(autoScroll, 25);
+                let sortedLinks = links.filter(link => !link.classList.contains("hidden"))
+                    .concat(links.filter(link => link.classList.contains("hidden")));
 
+                    sortedLinks.forEach(link => bookContainer.appendChild(link));
             }
-
-            autoScroll();
 
         </script>
 
