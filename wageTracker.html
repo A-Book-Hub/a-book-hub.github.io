@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wage Clock</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 3rem;
+      background: #f9f9f9;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    input[type="number"] {
+      font-size: 1.2rem;
+      padding: 0.5rem;
+      width: 200px;
+    }
+
+    button {
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    #counter {
+      margin-top: 2rem;
+      font-size: 4rem;
+      font-weight: bold;
+      color: #2b9348;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Enter Your Hourly Wage</h1>
+  <input id="wageInput" type="number" placeholder="e.g. 25.00" min="0" step="0.01"/>
+  <button onclick="startCounting()">Start</button>
+
+  <div id="counter"></div>
+
+  <script>
+    let total = 0;
+    let perSecond = 0;
+    let interval;
+
+    function startCounting() {
+      const wage = parseFloat(document.getElementById('wageInput').value);
+      if (isNaN(wage) || wage <= 0) {
+        alert("Please enter a valid hourly wage.");
+        return;
+      }
+
+      clearInterval(interval); // Reset any existing timer
+
+      perSecond = wage / 3600;
+      total = 0;
+
+      const counter = document.getElementById('counter');
+      counter.textContent = "$0.00";
+
+      interval = setInterval(() => {
+        total += perSecond;
+        counter.textContent = `$${total.toFixed(2)}`;
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
