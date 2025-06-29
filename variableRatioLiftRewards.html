@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lift & Spin</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #121212;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    input[type="number"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin: 1rem 0;
+      border-radius: 0.5rem;
+      border: none;
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1.2rem;
+      background: #28c76f;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #1aa654;
+    }
+
+    .wheel {
+      margin: 2rem auto;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 10px solid #444;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      animation: none;
+    }
+
+    .wheel .segment {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      top: 50%;
+      left: 50%;
+      transform-origin: 0% 0%;
+      background: #333;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      clip-path: polygon(0 0, 100% 0, 0 100%);
+    }
+
+    .pointer {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 30px solid #ff4757;
+      margin: 0 auto;
+      position: relative;
+      top: -20px;
+    }
+
+    .result {
+      font-size: 1.5rem;
+      margin-top: 1.5rem;
+      min-height: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏋️ Lift & Spin 🎯</h1>
+    <p>Enter how many sets you lifted:</p>
+    <input type="number" id="setsInput" placeholder="Enter # of sets" min="1" />
+    <br />
+    <button onclick="handleLift()">Submit & Spin</button>
+
+    <div class="pointer"></div>
+    <div class="wheel" id="wheel"></div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const rewards = [
+      "Invest $0.50",
+      "Play 10 mins",
+      "Nothing",
+      "Invest $0.20",
+      "Play 5 mins",
+      "Nothing",
+      "Invest $0.05",
+      "Play 1 mins"
+    ];
+
+    function buildWheel() {
+      const wheel = document.getElementById("wheel");
+      wheel.innerHTML = "";
+      const segmentAngle = 360 / rewards.length;
+      rewards.forEach((reward, i) => {
+        const segment = document.createElement("div");
+        segment.className = "segment";
+        segment.style.transform = `rotate(${i * segmentAngle}deg) skewY(-${90 - segmentAngle}deg)`;
+        segment.style.background = i % 2 === 0 ? "#1e90ff" : "#3742fa";
+        segment.innerHTML = reward;
+        wheel.appendChild(segment);
+      });
+    }
+
+    function handleLift() {
+      const sets = parseInt(document.getElementById("setsInput").value);
+      if (!sets || sets <= 0) {
+        alert("Please enter a valid number of sets.");
+        return;
+      }
+
+      spinWheel();
+    }
+
+    function spinWheel() {
+      const wheel = document.getElementById("wheel");
+      const result = document.getElementById("result");
+      const randomIndex = Math.floor(Math.random() * rewards.length);
+      const anglePerSlice = 360 / rewards.length;
+      const spinAngle = 360 * 5 + (360 - randomIndex * anglePerSlice - anglePerSlice / 2);
+
+      wheel.style.transition = "transform 3s ease-out";
+      wheel.style.transform = `rotate(${spinAngle}deg)`;
+
+      setTimeout(() => {
+        result.textContent = `Reward: ${rewards[randomIndex]}!`;
+      }, 3000);
+    }
+
+    buildWheel();
+  </script>
+</body>
+</html>
